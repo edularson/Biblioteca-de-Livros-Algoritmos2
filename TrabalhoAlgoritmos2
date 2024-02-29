@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <assert.h>
 using namespace std;
 
 // Struct = Feito
@@ -41,11 +42,34 @@ void imprimir_busca()
          << "5 - Sair:" << endl;
 }
 
+int verificando_anos(int &ano)
+{
+    while (true)
+    {
+        if (cin >> ano)
+        {
+            cin.ignore();
+            if (ano >= 1 && ano <= 2024)
+            {
+                return ano;
+            }
+            else
+            {
+                cout << "Opcao invalida! Por favor, digite um ano existente." << endl;
+            }
+        }
+        else
+        {
+            cout << "Entrada invalida! Por favor, digite um ano." << endl;
+            cin.clear();
+        }
+    }
+}
+
 void adicionar_livros()
 {
     cout << "Adicione o nome do seu livro: ";
     biblioteca novoLivro;
-    // cin.ignore();
     getline(cin, novoLivro.nome_livro);
     transform(novoLivro.nome_livro.begin(), novoLivro.nome_livro.end(), novoLivro.nome_livro.begin(), ::toupper);
     cout << endl
@@ -55,9 +79,8 @@ void adicionar_livros()
 
     cout << endl
          << "Adicione o ano de lancamento do seu livro: ";
-    // getline(cin, novoLivro.ano_lancamento_livro);
-    cin >> novoLivro.ano_lancamento_livro;
-    cin.ignore();
+    verificando_anos(novoLivro.ano_lancamento_livro);
+    cin.clear();
 
     cout << endl
          << "Adicione o estilo do seu livro (Ex: Romance, Ficcao, Poesia, Fabula etc): ";
